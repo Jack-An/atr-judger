@@ -1,0 +1,57 @@
+{
+  "c": {
+    "source": "main.c",
+    "compile": {
+      "argv": ["/usr/bin/gcc", "-O2", "main.c", "-lm", "-o", "program"],
+      "artifact": "program"
+    },
+    "run": ["/work/program"],
+    "processes": 16,
+    "libraries": ["C standard library", "libm"]
+  },
+  "cpp": {
+    "source": "main.cpp",
+    "compile": {
+      "argv": ["/usr/bin/g++", "-std=c++17", "-O2", "main.cpp", "-o", "program"],
+      "artifact": "program"
+    },
+    "run": ["/work/program"],
+    "processes": 16,
+    "libraries": ["C++17 standard library"]
+  },
+  "python": {
+    "source": "main.py",
+    "run": ["/usr/bin/python3", "-I", "-B", "main.py"],
+    "processes": 32,
+    "libraries": ["Python standard library"]
+  },
+  "javascript": {
+    "source": "main.js",
+    "run": ["/usr/local/bin/node", "main.js"],
+    "processes": 64,
+    "environment": { "NODE_PATH": "/usr/local/node_modules" },
+    "libraries": ["Node.js standard library"]
+  },
+  "typescript": {
+    "source": "main.ts",
+    "compile": {
+      "argv": ["/usr/local/bin/node", "/usr/local/node_modules/typescript/lib/tsc.js", "main.ts", "--module", "commonjs", "--target", "es2020", "--types", "node", "--typeRoots", "/usr/local/node_modules/@types", "--esModuleInterop", "--skipLibCheck"],
+      "artifact": "main.js"
+    },
+    "run": ["/usr/local/bin/node", "main.js"],
+    "processes": 64,
+    "environment": { "NODE_PATH": "/usr/local/node_modules" },
+    "libraries": ["Node.js standard library", "@types/node"]
+  },
+  "java": {
+    "source": "Main.java",
+    "compile": {
+      "argv": ["/usr/bin/sh", "-c", "javac -J-XX:+UseSerialGC Main.java && tar -cf program.tar -- *.class"],
+      "artifact": "program.tar"
+    },
+    "run": ["/usr/bin/sh", "-c", "tar -xf program.tar && exec java -XX:+UseSerialGC Main"],
+    "processes": 96,
+    "memoryOverheadKb": 262144,
+    "libraries": ["Java 21 standard library"]
+  }
+}

@@ -1,0 +1,20 @@
+[package]
+name = "atr-judger"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+description = "Native Linux judging engine with a standalone HTTP API"
+readme = "README.md"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+axum = { version = "0.7.9", default-features = false, features = ["http1", "json", "tokio"] }
+libc = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+subtle = "2.6"
+tempfile = "3"
+tokio = { version = "1", features = ["macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+
+[profile.release]
+lto = "thin"
+strip = true
